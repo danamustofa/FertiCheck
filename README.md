@@ -1,76 +1,82 @@
-Tentu! Berikut adalah contoh file README untuk GitHub yang mencakup instalasi library dan penggunaan kode pada ESP32:
+# Fertile and Infertile Egg Classification Project
 
----
+This project utilizes the ESP32 microcontroller along with an AI-based model to classify fertile and infertile eggs using an attached camera. The project leverages the Edge Impulse inferencing SDK for running the classification model directly on the ESP32.
 
-# FertiCheck ESP32 Detection
+## Project Components
 
-## Overview
+- **ESP32 Board**: The core microcontroller used in this project, specifically the AI Thinker model, which includes PSRAM for efficient camera processing.
+- **Camera Module**: The ESP32 is connected to a camera module, which captures images of the eggs for classification.
+- **Edge Impulse Inferencing SDK**: The SDK is used to run the trained machine learning model that classifies the images into fertile or infertile eggs.
+- **Wi-Fi Connectivity**: The ESP32 connects to a Wi-Fi network, allowing users to access the classification results via a web interface.
 
-**FertiCheck** adalah alat deteksi tingkat telur fertile dan infertile menggunakan metode MobileNet V2 0.1 dengan ESP32 Cam. Alat ini dirancang untuk memberikan hasil analisis yang cepat dan akurat, memudahkan pemilihan telur dalam berbagai aplikasi pertanian dan penelitian.
+## Hardware Requirements
 
-## Prerequisites
+- ESP32 AI Thinker Board
+- Camera module compatible with the ESP32 (AI Thinker model)
+- USB Cable for programming and power
+- Wi-Fi network for connecting the ESP32
 
-- **Hardware**: ESP32 Cam
-- **Software**: Arduino IDE
+## Software Requirements
 
-## Installation
+- Arduino IDE with ESP32 board support
+- Edge Impulse SDK installed and configured
+- Wi-Fi credentials for connecting the ESP32 to a local network
 
-### Step 1: Install Arduino IDE
+## Project Setup
 
-Download and install the Arduino IDE from the [official website](https://www.arduino.cc/en/software).
+1. **Hardware Setup**:
+    - Connect the camera module to the ESP32 according to the pin configuration defined in the code.
+    - Ensure that the ESP32 board is connected to your computer via USB.
 
-### Step 2: Install ESP32 Board
+2. **Software Setup**:
+    - Install the necessary libraries in the Arduino IDE:
+      - `esp_camera`
+      - `WiFi`
+      - `ESPAsyncWebServer`
+      - `AsyncTCP`
+      - `Edge Impulse Inferencing SDK`
+    - Configure the Wi-Fi credentials in the code:
+      ```cpp
+      const char* ssid = "Your_SSID";
+      const char* password = "Your_Password";
+      ```
+    - Load the project code into the Arduino IDE and upload it to the ESP32 board.
 
-1. Open Arduino IDE.
-2. Go to `File` -> `Preferences`.
-3. In the "Additional Board Manager URLs" field, add:
-    ```
-    https://dl.espressif.com/dl/package_esp32_index.json
-    ```
-4. Go to `Tools` -> `Board` -> `Boards Manager`.
-5. Search for "ESP32" and click "Install".
+3. **Edge Impulse Model**:
+    - Train a model using the Edge Impulse platform for classifying fertile and infertile eggs.
+    - Deploy the trained model to the ESP32 by exporting the inference code from Edge Impulse and integrating it with the project.
 
-### Step 3: Install Required Libraries
+## Running the Project
 
-1. Download the `ei-fertile-infertile-egg-classification-arduino-1.0.1.zip` library from the repository.
-2. Open Arduino IDE.
-3. Go to `Sketch` -> `Include Library` -> `Add .ZIP Library...`.
-4. Select the downloaded `ei-fertile-infertile-egg-classification-arduino-1.0.1.zip` file.
+1. **Power the ESP32**: Once the code is uploaded, power the ESP32 via USB or an external power source.
+2. **Connect to Wi-Fi**: The ESP32 will automatically connect to the Wi-Fi network specified in the code. Monitor the Serial output for connection status and IP address.
+3. **Access the Web Interface**:
+    - Open a web browser and enter the IP address of the ESP32 to access the object detection results.
+    - The webpage will dynamically update with the classification results as the ESP32 processes images.
 
-### Step 4: Clone the Repository
+## Code Overview
 
-1. Open a terminal and clone the repository:
-    ```bash
-    git clone https://github.com/yourusername/FertiCheck-ESP32.git
-    ```
-2. Navigate to the `esp32_detection` directory:
-    ```bash
-    cd FertiCheck-ESP32/esp32_detection
-    ```
+- **Camera Configuration**: The camera is initialized with specific pins and settings for the AI Thinker model.
+- **Wi-Fi Setup**: The ESP32 connects to the specified Wi-Fi network and hosts a web server.
+- **Image Capture and Processing**: The camera captures images, which are then processed and passed to the Edge Impulse model for classification.
+- **WebSocket Server**: The ESP32 uses WebSocket to update the web interface in real-time with the classification results.
 
-## Usage
+## Troubleshooting
 
-1. Open the `esp32_detection.ino` file in Arduino IDE.
-2. Connect your ESP32 Cam to your computer.
-3. Select the correct board and port:
-    - Board: `AI Thinker ESP32-CAM`
-    - Port: (Select the port to which your ESP32 Cam is connected)
-4. Upload the code to your ESP32 Cam.
-5. Follow the on-screen instructions to start detecting fertile and infertile eggs.
+- **Camera Initialization Failed**: Ensure the camera module is correctly connected and the pin configuration matches your setup.
+- **Wi-Fi Connection Issues**: Double-check the SSID and password. Verify that the Wi-Fi network is within range.
+- **Web Interface Not Loading**: Make sure the ESP32 is connected to the Wi-Fi, and the correct IP address is used.
 
-## Contributing
+## Future Enhancements
 
-We welcome contributions! Feel free to fork the repository, make your changes, and submit a pull request. Please ensure your code is well-documented and tested.
+- Add more categories for classification.
+- Implement anomaly detection to identify unclear or invalid images.
+- Improve the web interface with more detailed result displays and user controls.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Acknowledgments
-
-- Thanks to the open-source community for their resources and support.
-- Special recognition to the developers of MobileNet V2 and ESP32 Cam for their incredible tools.
+This project is licensed under the MIT License. Feel free to modify and distribute as needed.
 
 ---
 
-Feel free to modify and expand this README as needed for your project.
+This README provides an overview of setting up and running the Fertile and Infertile Egg Classification project using ESP32. Follow the instructions carefully to ensure proper functionality and successful classification.
